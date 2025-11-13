@@ -1,15 +1,41 @@
+</html>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--JS-->
-    <script src="./Javascript/main.js" defer></script>
-    <title>Entrega 1</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--JS-->
+      <script src="./Javascript/main.js" defer></script>
+  <title>SnowTrip Planner</title>
+  <!--CSS-->
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <h1>Entrega Sol Cáffaro</h1>
 
-    
+<body>
+  <header>
+    <h1>SnowTrip Planner</h1>
+    <p>Simulá tu día de ski según el clima y la montaña elegida</p>
+  </header>
+
+  <main>
+    <section id="simulador">
+      <label for="mountainSelect">Elegí tu centro de ski:</label>
+      <select id="mountainSelect"></select>
+
+      <button id="simulateBtn">Simular Día</button>
+    </section>
+
+    <section id="result">
+    </section>
+
+    <section id="history">
+      <h3>Historial de Simulaciones</h3>
+      <ul id="historyList"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Hecho por Sol Cáffaro</p>
+  </footer>
 </body>
 </html>

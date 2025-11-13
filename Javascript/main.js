@@ -1,71 +1,92 @@
 //SNOWTRIP PLANNER
 
 //centros de ski
-const skiCenters = ["Cerro Catedral", "Las Leñas", "Portillo", "Chapelco"]
+const skiCenters = [
+  { id: 1, name: "Cerro Catedral", country: "Argentina" },
+  { id: 2, name: "Las Leñas", country: "Argentina" },
+  { id: 3, name: "Portillo", country: "Chile" },
+  { id: 4, name: "Aspen", country: "EE.UU." }
+]
 
-//Función condiciones climáticas
+
+const mountainSelect = document.getElementById("mountainSelect")
+const simulateBtn = document.getElementById("simulateBtn")
+const resultDiv = document.getElementById("result")
+const historyList = document.getElementById("historyList")
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  cargarOpciones()
+  mostrarHistorial()
+})
+
+//Funciones
+function cargarOpciones() {
+  skiCenters.forEach(center => {
+    const option = document.createElement("option")
+    option.value = center.id
+    option.textContent = `${center.name} (${center.country})`
+    mountainSelect.appendChild(option)
+  })
+}
+
+
 function generarClima() {
-  const climas = ["soleado", "nevando", "ventoso", "nublado"]
+  const climas = ["soleado", "nevando", "nublado", "ventoso"]
   const indice = Math.floor(Math.random() * climas.length)
   return climas[indice]
 }
 
-// Función disfrute según el clima
 function calcularDisfrute(clima) {
-  let disfrute;
-
   switch (clima) {
-    case "soleado":
-      disfrute = "Excelente día para esquiar"
-      break
-    case "nevando":
-      disfrute = "Día perfecto con nieve fresca"
-      break
-    case "nublado":
-      disfrute = "Condiciones normales, visibilidad media"
-      break
-    case "ventoso":
-      disfrute = "Mucho viento, precaución en las pistas"
-      break
-    default:
-      disfrute = "Condiciones desconocidas"
-  }
-
-  return disfrute
-}
-
-// Ciclo principal del simulador
-let seguir = true;
-
-while (seguir) {
-  let mensajeCentros = "Centros disponibles:\n"
-  for (let i = 0; i < skiCenters.length; i++) {
-    mensajeCentros += `${i + 1}. ${skiCenters[i]}\n`
-  }
-
-  // Entrada del usuario
-  const opcion = prompt(
-    mensajeCentros + "\nElegí un número de centro de ski o escribí 'salir' para terminar:"
-  )
-
-  if (opcion === null || opcion.toLowerCase() === "salir") {
-    seguir = false;
-    alert("Gracias por usar SnowTrip Planner")
-  } else {
-    const indice = parseInt(opcion) - 1
-
-    if (indice >= 0 && indice < skiCenters.length) {
-      const centro = skiCenters[indice]
-      const clima = generarClima()
-      const resultado = calcularDisfrute(clima)
-
-      alert(
-        `Has elegido ${centro}.\nHoy el clima está ${clima}.\n${resultado}`
-      )
-    } else {
-      alert("Opción no válida. Intentá nuevamente.");
-    }
+    case "soleado": return "Excelente día para esquiar"
+    case "nevando": return "Día ideal con nieve fresca"
+    case "nublado": return "Condiciones normales, buena visibilidad."
+    case "ventoso": return "Mucho viento, precaución en las pistas"
+    default: return "Condiciones desconocidas."
   }
 }
 
-console.log("Simulación finalizada.");
+
+function guardarSimulacion(simulacion) {
+  const historial = JSON.parse(localStorage.getItem("historial")) || []
+  historial.push(simulacion)
+  localStorage.setItem("historial", JSON.stringify(historial))
+}
+
+
+function mostrarHistorial() {
+  const historial = JSON.parse(localStorage.getItem("historial")) || []
+  historyList.innerHTML = ""
+  historial.forEach(sim => {
+    const li = document.createElement("li")
+    li.textContent = `${sim.centro} – ${sim.clima} – ${sim.mensaje}`
+    historyList.appendChild(li)
+  });
+}
+
+
+simulateBtn.addEventListener("click", () => {
+  const selectedId = parseInt(mountainSelect.value)
+  const centro = skiCenters.find(c => c.id === selectedId)
+
+  if (!centro) {
+    resultDiv.textContent = "Por favor, seleccioná un centro de ski."
+    return
+  }
+
+  const clima = generarClima()
+  const mensaje = calcularDisfrute(clima)
+
+  // Resultado
+  resultDiv.innerHTML = `
+    <h2>${centro.name}</h2>
+    <p><b>Clima:</b> ${clima}</p>
+    <p>${mensaje}</p>
+  ` 
+
+  
+  const simulacion = { centro: centro.name, clima, mensaje }
+  guardarSimulacion(simulacion)
+  mostrarHistorial()
+})
