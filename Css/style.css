@@ -1,0 +1,43 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to bottom, #cde9ff, #ffffff);
+  color: #023047;
+  text-align: center;
+  padding: 20px;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+select, button {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px solid #023047;
+  font-size: 1em;
+}
+
+button {
+  background-color: #023047;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #035a8d;
+}
+
+#result {
+  background: rgba(255,255,255,0.8);
+  border-radius: 16px;
+  margin-top: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+#historyList {
+  list-style: none;
+  padding: 0;
+}
