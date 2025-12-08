@@ -1,41 +1,38 @@
-</html>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--JS-->
-      <script src="./Javascript/main.js" defer></script>
-  <title>SnowTrip Planner</title>
-  <!--CSS-->
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <title>Gestor de Reservas de Ski</title>
+    <link rel="stylesheet" href="Css/style.css">
 </head>
-
 <body>
-  <header>
-    <h1>SnowTrip Planner</h1>
-    <p>Simulá tu día de ski según el clima y la montaña elegida</p>
-  </header>
 
-  <main>
-    <section id="simulador">
-      <label for="mountainSelect">Elegí tu centro de ski:</label>
-      <select id="mountainSelect"></select>
+    <h1>Gestor de Reservas de Ski</h1>
 
-      <button id="simulateBtn">Simular Día</button>
-    </section>
+    <form id="formReserva">
+        <input type="text" id="nombre" placeholder="Nombre del cliente" required>
+        <input type="date" id="fecha" required>
 
-    <section id="result">
-    </section>
+        <select id="nivel">
+            <option value="Básico">Básico</option>
+            <option value="Intermedio">Intermedio</option>
+            <option value="Avanzado">Avanzado</option>
+        </select>
 
-    <section id="history">
-      <h3>Historial de Simulaciones</h3>
-      <ul id="historyList"></ul>
-    </section>
-  </main>
+        <select id="tipo">
+            <option value="Ski">Ski</option>
+            <option value="Snowboard">Snowboard</option>
+        </select>
 
-  <footer>
-    <p>Hecho por Sol Cáffaro</p>
-  </footer>
+        <button type="submit">Crear reserva</button>
+    </form>
+
+    <h2>Reservas</h2>
+    <div id="listaReservas"></div>
+
+    <button id="vaciarBtn">Vaciar todas</button>
+
+    <script src="js/logic/logic.js"></script>
+    <script src="js/dom/app.js"></script>
 </body>
 </html>
